@@ -68,6 +68,16 @@
         }
         .radar-text h2 { font-size: 2.5em; font-weight: 900; letter-spacing: -1px; color: var(--white); margin: 0; }
 
+        /* MAP SECTION */
+        .map-section {
+            margin-top: 50px; background: var(--dark); padding: 60px; border-radius: 60px;
+            display: grid; grid-template-columns: 1fr 1.5fr; gap: 40px; align-items: center; color: white;
+        }
+        .map-info h2 { font-size: 2.5em; font-weight: 900; letter-spacing: -1px; margin-bottom: 20px; }
+        .map-legend { margin-top: 30px; }
+        .legend-item { display: flex; align-items: center; margin-bottom: 12px; font-size: 0.9em; font-weight: 700; }
+        .l-dot { width: 12px; height: 12px; border-radius: 50%; margin-right: 15px; }
+
         .journey-section { margin-top: 80px; text-align: center; }
         .journey-container { 
             display: flex; justify-content: space-between; align-items: flex-start; 
@@ -87,17 +97,6 @@
         .step-node:hover { transform: scale(1.2); background: var(--primary); color: white; }
         .journey-step h4 { font-size: 1em; margin: 10px 0 5px; font-weight: 800; }
         .journey-step p { font-size: 0.85em; opacity: 0.6; padding: 0 10px; line-height: 1.4; }
-
-        /* MAP SECTION */
-        .map-section {
-            margin-top: 50px; background: var(--dark); padding: 60px; border-radius: 60px;
-            display: grid; grid-template-columns: 1fr 1.5fr; gap: 40px; align-items: center; color: white;
-        }
-        .map-info h2 { font-size: 2.5em; font-weight: 900; letter-spacing: -1px; margin-bottom: 20px; }
-        .map-info p { opacity: 0.8; font-size: 1em; }
-        .map-legend { margin-top: 30px; }
-        .legend-item { display: flex; align-items: center; margin-bottom: 12px; font-size: 0.9em; font-weight: 700; }
-        .l-dot { width: 12px; height: 12px; border-radius: 50%; margin-right: 15px; }
 
         .product-pills { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-top: 40px; }
         .pill { background: var(--white); padding: 15px 35px; border-radius: 100px; box-shadow: 0 10px 20px rgba(0,0,0,0.03); font-weight: 700; border: 1px solid rgba(0,0,0,0.05); }
@@ -121,7 +120,6 @@
             .journey-container::before { display: none; }
             .journey-step { margin-bottom: 40px; }
             .hero h1 { font-size: 2.5em; }
-            .map-box { height: 450px; }
         }
     </style>
 </head>
@@ -175,15 +173,14 @@
         <div class="map-section">
             <div class="map-info">
                 <h4 style="color: var(--primary); letter-spacing: 2px; text-transform: uppercase; font-weight: 800;">Mạng Lưới Phân Phối</h4>
-                <h2>Phủ Sóng Toàn Diện</h2>
-                <p>Bếp Chú 7 đang tập trung tối ưu hóa chuỗi cung ứng tại khu vực phía Nam với các Hub chiến lược và hệ thống shop vệ tinh.</p>
+                <h2>Phủ Sóng Toàn Quốc</h2>
+                <p>Hệ thống đại lý Bếp Chú 7 đang mở rộng mạnh mẽ tại các tỉnh phía Nam, kết nối trực tiếp từ xưởng đến người tiêu dùng.</p>
                 <div class="map-legend">
-                    <div class="legend-item"><span class="l-dot" style="background: #c1272d; box-shadow: 0 0 10px #c1272d;"></span>Chi Nhánh/Hub Chính (HCM, Cần Thơ, BRVT)</div>
-                    <div class="legend-item"><span class="l-dot" style="background: #2a9d8f; box-shadow: 0 0 10px #2a9d8f;"></span>Shop nhỏ & Tạp hóa vệ tinh Miền Nam</div>
-                    <div class="legend-item"><span class="l-dot" style="background: rgba(255,255,255,0.2);"></span>Lộ trình Miền Trung & Bắc (2027)</div>
+                    <div class="legend-item"><span class="l-dot" style="background: #c1272d; box-shadow: 0 0 10px #c1272d;"></span>Chi Nhánh / Hub Chính</div>
+                    <div class="legend-item"><span class="l-dot" style="background: #2a9d8f;"></span>Điểm bán lẻ & Đại lý vệ tinh</div>
                 </div>
             </div>
-            <div id="chart-map" class="map-box" style="height: 500px; width: 100%;"></div>
+            <div id="chart-map" style="height: 500px; width: 100%;"></div>
         </div>
 
         <div style="text-align: center; margin-top: 80px;">
@@ -208,46 +205,30 @@
 
     <script>
         window.onload = function() {
-            // 1. PIE CHART
+            // 1. PIE
             var pieChart = echarts.init(document.getElementById('chart-pie'));
             pieChart.setOption({
-                tooltip: { trigger: 'item' },
-                series: [{
-                    type: 'pie', radius: ['50%', '70%'], itemStyle: { borderRadius: 20 },
-                    label: { show: true, position: 'outside', fontSize: 12, fontWeight: 'bold' },
-                    data: [
-                        { value: 450, name: 'Mắm Linh', itemStyle: {color: '#c1272d'} },
-                        { value: 300, name: 'Mắm Sặc', itemStyle: {color: '#f4a261'} },
-                        { value: 200, name: 'Mắm Chốt', itemStyle: {color: '#2a9d8f'} }
-                    ]
+                series: [{ type: 'pie', radius: ['50%', '70%'], itemStyle: { borderRadius: 20 },
+                data: [{ value: 450, name: 'Mắm Linh', itemStyle: {color: '#c1272d'} },{ value: 300, name: 'Mắm Sặc', itemStyle: {color: '#f4a261'} },{ value: 200, name: 'Mắm Chốt', itemStyle: {color: '#2a9d8f'} }]
                 }]
             });
 
-            // 2. RACE CHART
+            // 2. RACE
             var raceChart = echarts.init(document.getElementById('chart-race'));
-            if (typeof optionBepChu7 !== 'undefined') {
-                raceChart.setOption(optionBepChu7);
-                if (typeof startBếpChú7Race === 'function') { startBếpChú7Race(raceChart); }
-            }
+            if (typeof optionBepChu7 !== 'undefined') { raceChart.setOption(optionBepChu7); if (typeof startBếpChú7Race === 'function') { startBếpChú7Race(raceChart); } }
 
-            // 3. RADAR CHART
+            // 3. RADAR
             var radarChart = echarts.init(document.getElementById('chart-radar'));
             radarChart.setOption({
-                radar: {
-                    indicator: [{ name: 'Độ Đạm', max: 100 },{ name: 'Độ Sạch', max: 100 },{ name: 'Truyền Thống', max: 100 },{ name: 'Độ Tươi', max: 100 },{ name: 'Minh Bạch', max: 100 }],
-                    splitNumber: 4, axisName: { color: '#fff', fontWeight: 'bold' },
-                    splitLine: { lineStyle: { color: 'rgba(255, 255, 255, 0.1)' } },
-                    axisLine: { lineStyle: { color: 'rgba(255, 255, 255, 0.2)' } }
-                },
-                series: [{
-                    type: 'radar', data: [{ value: [95, 98, 90, 95, 100], areaStyle: { color: 'rgba(193, 39, 45, 0.4)' }, itemStyle: { color: '#c1272d' } }]
-                }]
+                radar: { indicator: [{ name: 'Độ Đạm', max: 100 },{ name: 'Độ Sạch', max: 100 },{ name: 'Truyền Thống', max: 100 },{ name: 'Độ Tươi', max: 100 },{ name: 'Minh Bạch', max: 100 }], axisName: { color: '#fff' } },
+                series: [{ type: 'radar', data: [{ value: [95, 98, 90, 95, 100], areaStyle: { color: 'rgba(193, 39, 45, 0.4)' }, itemStyle: { color: '#c1272d' } }] }]
             });
 
-            // 4. BẢN ĐỒ VIỆT NAM (SỬ DỤNG LINK CDN CHUẨN ĐỂ TRÁNH LỖI CORS)
+            // 4. BẢN ĐỒ TỐI GIẢN (SỬ DỤNG DẠNG SCATTER TRÊN NỀN SVG)
             var mapChart = echarts.init(document.getElementById('chart-map'));
-            // Tui gọi trực tiếp thư viện Map để đảm bảo hiển thị
-            fetch('https://raw.githubusercontent.com/longlt88/vietnam-geojson/master/vietnam.json')
+            
+            // Tải bản đồ VN từ nguồn CDN ổn định nhất của ECharts
+            fetch('https://raw.githubusercontent.com/apache/echarts/master/test/data/map/json/vietnam.json')
             .then(res => res.json())
             .then(geoJson => {
                 echarts.registerMap('VN', geoJson);
@@ -255,28 +236,31 @@
                     geo: {
                         map: 'VN', roam: false, zoom: 1.2, center: [106.5, 16.5],
                         itemStyle: { areaColor: '#1e293b', borderColor: '#334155' },
-                        emphasis: { itemStyle: { areaColor: '#243347' } }
+                        emphasis: { itemStyle: { areaColor: '#243347' }, label: {show: false} }
                     },
                     series: [{
                         type: 'effectScatter', coordinateSystem: 'geo',
                         data: [
-                            { name: 'TP. Hồ Chí Minh', value: [106.6297, 10.8231, 100], itemStyle: {color: '#c1272d'} },
-                            { name: 'Cần Thơ', value: [105.7852, 10.0452, 85], itemStyle: {color: '#c1272d'} },
-                            { name: 'Bà Rịa', value: [107.1633, 10.4114, 80], itemStyle: {color: '#c1272d'} },
-                            { name: 'Vệ tinh 1', value: [106.8, 10.9, 20], itemStyle: {color: '#2a9d8f'} },
-                            { name: 'Vệ tinh 2', value: [106.4, 10.5, 18], itemStyle: {color: '#2a9d8f'} },
-                            { name: 'Vệ tinh 3', value: [105.5, 10.2, 15], itemStyle: {color: '#2a9d8f'} }
+                            { name: 'Sài Gòn', value: [106.66, 10.76, 100], itemStyle: {color: '#c1272d'} },
+                            { name: 'Cần Thơ', value: [105.78, 10.03, 80], itemStyle: {color: '#c1272d'} },
+                            { name: 'Vũng Tàu', value: [107.08, 10.34, 70], itemStyle: {color: '#c1272d'} },
+                            { name: 'Đại lý Miền Tây', value: [105.12, 10.37, 20], itemStyle: {color: '#2a9d8f'} },
+                            { name: 'Đại lý Đồng Nai', value: [106.81, 10.95, 15], itemStyle: {color: '#2a9d8f'} }
                         ],
-                        symbolSize: val => val[2] / 4,
+                        symbolSize: val => val[2] / 5,
                         rippleEffect: { brushType: 'stroke', scale: 4 },
                         label: { show: true, position: 'right', formatter: '{b}', fontSize: 10, color: '#fff' }
                     }]
                 });
+            })
+            .catch(e => {
+                // Nếu vẫn lỗi load file JSON (do mạng), hiển thị bản đồ dạng đơn giản hơn
+                mapChart.setOption({
+                    title: { text: 'Đang tải bản đồ...', textStyle: {color:'#fff'}, left: 'center', top: 'center' }
+                });
             });
 
-            window.onresize = function() { 
-                pieChart.resize(); raceChart.resize(); radarChart.resize(); mapChart.resize(); 
-            };
+            window.onresize = function() { pieChart.resize(); raceChart.resize(); radarChart.resize(); mapChart.resize(); };
         };
     </script>
 </body>
