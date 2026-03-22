@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bếp Chú 7 | Healthy Vietnam Network</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <script src="data_daily.js" defer></script>
+
+    <style>
+        :root { --primary: #c1272d; --dark: #0f172a; --bg: #f1f5f9; --white: #ffffff; --green-tech: #2a9d8f; --glass: rgba(255, 255, 255, 0.9); }
+        body { margin: 0; font-family: 'Inter', sans-serif; background: #f1f5f9; color: var(--dark); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+        
+        .hero { 
+            height: 70vh; background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('assets/cover.jpg') no-repeat center center;
+            background-size: cover; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            color: white; text-align: center; border-bottom-left-radius: 60px; border-bottom-right-radius: 60px;
+        }
+        .logo-brand { width: 100px; margin-bottom: 20px; }
+        .hero h1 { font-size: 3.5em; font-weight: 900; letter-spacing: -2px; margin: 0; }
+
+        .container { max-width: 1100px; margin: -80px auto 80px; padding: 0 20px; }
+
+        /* Stats Cards */
+        .stats-overlap { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
+        .stat-card { background: var(--glass); padding: 40px 25px; border-radius: 50px; box-shadow: 0 20px 40px rgba(0,0,0,0.05); backdrop-filter: blur(10px); text-align: center; transition: 0.3s; }
+        .stat-card:hover { transform: translateY(-10px); }
+        .stat-card h2 { color: var(--primary); font-size: 2.8em; margin: 0; font-weight: 900; }
+
+        .status-badge { text-align: center; margin: 30px 0; font-size: 0.8em; font-weight: 700; color: var(--green-tech); }
+        .dot { display: inline-block; width: 8px; height: 8px; background: var(--green-tech); border-radius: 50%; margin-right: 8px; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { transform: scale(0.9); opacity: 1; } 70% { transform: scale(2); opacity: 0; } 100% { transform: scale(0.9); opacity: 0; } }
+
+        /* Chart Sections */
+        .grid-section { display: grid; grid-template-columns: 1fr 1.5fr; gap: 25px; margin-bottom: 30px; }
+        .card { background: var(--glass); padding: 30px; border-radius: 50px; box-shadow: 0 15px 35px rgba(0,0,0,0.05); }
+        .chart-box { height: 380px; width: 100%; }
+
+        .radar-dark { background: var(--dark); color: white; padding: 50px; border-radius: 50px; display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: center; }
+
+        /* Timeline Journey */
+        .journey-section { margin: 60px 0; text-align: center; }
+        .journey-flex { display: flex; justify-content: space-between; margin-top: 40px; position: relative; }
+        .journey-flex::before { content: ''; position: absolute; top: 25px; left: 10%; right: 10%; height: 2px; background: rgba(0,0,0,0.05); z-index: 1; }
+        .step { flex: 1; z-index: 2; }
+        .node { width: 50px; height: 50px; background: white; border: 4px solid var(--primary); border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; font-weight: 900; color: var(--primary); }
+
+        /* Map Section */
+        .map-container { background: var(--dark); padding: 60px; border-radius: 50px; display: grid; grid-template-columns: 1fr 1.6fr; gap: 40px; color: white; margin-top: 30px; }
+        .map-text h2 { font-size: 2.5em; font-weight: 900; margin: 0 0 15px; }
+        .legend-list { list-style: none; padding: 0; font-size: 0.85em; opacity: 0.8; }
+        .legend-list li { margin-bottom: 10px; display: flex; align-items: center; }
+        .l-dot { width: 10px; height: 10px; border-radius: 50%; margin-right: 10px; }
+
+        .pill-box { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 40px 0; }
+        .pill { background: white; padding: 12px 25px; border-radius: 50px; font-weight: 700; font-size: 0.9em; box-shadow: 0 5px 15px rgba(0,0,0,0.02); }
+
+        .cta-btn { display: inline-block; background: var(--dark); color: white; padding: 20px 50px; border-radius: 50px; text-decoration: none; font-weight: 800; transition: 0.3s; margin-top: 30px; }
+        .cta-btn:hover { background: var(--primary); transform: translateY(-5px); }
+
+        footer { text-align: center; padding: 40px; opacity: 0.3; font-size: 0.8em; font-weight: 700; }
+
+        @media (max-width: 850px) { .grid-section, .radar-dark, .map-container, .stats-overlap, .journey-flex { grid-template-columns: 1fr; display: block; } .step { margin-bottom: 30px; } .map-box { height: 400px; } }
+    </style>
+</head>
+<body>
+
+    <section class="hero">
+        <img src="assets/logo.png" class="logo-brand" alt="Bếp Chú 7">
+        <h1>BẾP CHÚ 7</h1>
+        <p>Hệ thống số hóa & Chuỗi cung ứng mắm sạch</p>
+    </section>
+
+    <div class="container">
+        <div class="stats-overlap">
+            <div class="stat-card"><h2>100%</h2><h3>Cá Tươi Sông</h3></div>
+            <div class="stat-card"><h2>180D</h2><h3>Ủ Chượp Kỹ</h3></div>
+            <div class="stat-card"><h2>50+</h2><h3>Điểm Phân Phối</h3></div>
+        </div>
+
+        <div class="status-badge"><span class="dot"></span>HỆ THỐNG DỮ LIỆU ĐANG KẾT NỐI REAL-TIME</div>
+
+        <div class="grid-section">
+            <div class="card"><h4 style="text-align:center">Cơ Cấu Mặt Hàng</h4><div id="pie" class="chart-box"></div></div>
+            <div class="card"><h4 style="text-align:center">Sản Lượng Xuất Kho</h4><div id="race" class="chart-box"></div></div>
+        </div>
+
+        <div class="radar-dark">
+            <div><h2>Tiêu Chuẩn<br>Định Lượng</h2><p>Mọi chỉ số độ đạm và tinh khiết đều được kiểm soát bằng hệ thống Dashboard thông minh.</p></div>
+            <div id="radar" style="height: 350px;"></div>
+        </div>
+
+        <div class="journey-section">
+            <h4 style="opacity:0.4; letter-spacing:2px">THE JOURNEY OF QUALITY</h4>
+            <div class="journey-flex">
+                <div class="step"><div class="node">D0</div><b>Đánh Bắt</b></div>
+                <div class="step"><div class="node">D1</div><b>Vào Muối</b></div>
+                <div class="step"><div class="node">D180</div><b>Thành Phẩm</b></div>
+                <div class="step"><div class="node" style="border-color:var(--green-tech); color:var(--green-tech)">RT</div><b>Xuất Kho</b></div>
+            </div>
+        </div>
+
+        <div class="map-container">
+            <div class="map-text">
+                <h4 style="color:var(--primary)">Hệ Thống Phân Phối</h4>
+                <h2>Phủ Sóng<br>Phía Nam</h2>
+                <p>Mô hình Hub-and-Spoke giúp tối ưu thời gian giao hàng từ xưởng đến các shop nhỏ và tạp hóa.</p>
+                <ul class="legend-list">
+                    <li><span class="l-dot" style="background:var(--primary)"></span> Hub Chiến Lược (Chấm lớn)</li>
+                    <li><span class="l-dot" style="background:var(--green-tech)"></span> Shop & Tạp hóa vệ tinh</li>
+                    <li><span class="l-dot" style="background:rgba(255,255,255,0.2)"></span> Kế hoạch mở rộng 2027</li>
+                </ul>
+            </div>
+            <div id="map" class="chart-box" style="height: 500px;"></div>
+        </div>
+
+        <div class="pill-box">
+            <div class="pill">🐟 Mắm Cá Linh</div><div class="pill">🐠 Mắm Cá Sặc</div><div class="pill">🍲 Mắm Chưng</div><div class="pill">🍤 Mắm Thái</div>
+        </div>
+
+        <div style="text-align:center">
+            <h2 style="font-size:3em; font-weight:900">Sẵn Sàng Kết Nối?</h2>
+            <a href="https://zalo.me/your-number" class="cta-btn">TRỞ THÀNH ĐỐI TÁC ĐẠI LÝ</a>
+        </div>
+    </div>
+
+    <footer>BẾP CHÚ 7 - SYSTEMATIC TRADITION © 2026</footer>
+
+    <script>
+        const VN_GEO = 'https://raw.githubusercontent.com/longlt88/vietnam-geojson/master/vietnam.json';
+
+        window.onload = function() {
+            // PIE
+            echarts.init(document.getElementById('pie')).setOption({
+                series: [{ type: 'pie', radius: ['40%', '70%'], itemStyle: {borderRadius: 15},
+                    data: [{value: 40, name: 'Linh', itemStyle:{color:'#c1272d'}}, {value: 30, name: 'Sặc', itemStyle:{color:'#f4a261'}}, {value: 30, name: 'Khác', itemStyle:{color:'#2a9d8f'}}]
+                }]
+            });
+
+            // RACE (Link to your external data_daily.js)
+            var race = echarts.init(document.getElementById('race'));
+            if (typeof optionBepChu7 !== 'undefined') { race.setOption(optionBepChu7); if(typeof startBếpChú7Race === 'function') startBếpChú7Race(race); }
+
+            // RADAR
+            echarts.init(document.getElementById('radar')).setOption({
+                radar: { indicator: [{name:'Đạm'},{name:'Sạch'},{name:'Vị'},{name:'Tươi'},{name:'Sạch'}], axisName:{color:'#fff'} },
+                series: [{type:'radar', data:[{value:[90,95,88,92,100], areaStyle:{color:'rgba(193,39,45,0.3)'}, itemStyle:{color:'#c1272d'}}]}]
+            });
+
+            // MAP
+            var mapChart = echarts.init(document.getElementById('map'));
+            fetch(VN_GEO).then(res => res.json()).then(geo => {
+                echarts.registerMap('VN', geo);
+                mapChart.setOption({
+                    geo: { map:'VN', roam:false, zoom:1.2, center:[106.5, 16], itemStyle:{areaColor:'#1e293b', borderColor:'#334155'} },
+                    series: [{
+                        type:'effectScatter', coordinateSystem:'geo',
+                        data: [
+                            {name:'TP.HCM', value:[106.6, 10.8, 100], itemStyle:{color:'#c1272d'}},
+                            {name:'Bà Rịa', value:[107.2, 10.4, 80], itemStyle:{color:'#c1272d'}},
+                            {name:'Cần Thơ', value:[105.8, 10.0, 80], itemStyle:{color:'#c1272d'}},
+                            {name:'Shop A', value:[106.8, 10.9, 20], itemStyle:{color:'#2a9d8f'}},
+                            {name:'Tạp hóa B', value:[106.4, 10.5, 20], itemStyle:{color:'#2a9d8f'}},
+                            {name:'Shop C', value:[105.7, 10.2, 20], itemStyle:{color:'#2a9d8f'}}
+                        ],
+                        symbolSize: val => val[2]/4, rippleEffect:{scale:4, brushType:'stroke'},
+                        label:{show:true, position:'right', formatter:'{b}', color:'#fff', fontSize:9}
+                    }]
+                });
+            });
+            window.addEventListener('resize', () => { echarts.getInstanceByDom(document.getElementById('pie')).resize(); mapChart.resize(); });
+        };
+    </script>
+</body>
+</html>
