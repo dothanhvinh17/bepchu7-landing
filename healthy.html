@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bếp Chú 7 | Healthy & Premium Edition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <script src="data_daily.js" defer></script>
+
+    <style>
+        :root { 
+            --primary: #e63946; 
+            --dark: #1d3557; 
+            --bg: #f0f4f8; /* Nền xanh xám nhạt cực sạch */
+            --white: #ffffff;
+            --accent: #2a9d8f;
+        }
+
+        body { 
+            margin: 0; 
+            font-family: 'Inter', sans-serif; 
+            background: var(--bg); 
+            color: var(--dark); 
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* HERO SECTION - GIỮ BIẾN CŨ */
+        .hero { 
+            position: relative;
+            height: 70vh;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
+                        url('assets/cover.jpg') no-repeat center center;
+            background-size: cover; 
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            color: white; text-align: center;
+            border-bottom-left-radius: 60px; /* Bo góc lớn cho Hero */
+            border-bottom-right-radius: 60px;
+        }
+
+        .logo-brand {
+            width: 100px;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.2));
+        }
+
+        .hero h1 { font-size: 3.5em; font-weight: 800; letter-spacing: -2px; margin: 0; }
+        .hero p { font-size: 1.2em; opacity: 0.9; margin-top: 10px; }
+
+        .container { max-width: 1000px; margin: -80px auto 80px; padding: 0 20px; position: relative; z-index: 10; }
+
+        /* CARD STYLE - THEO MẪU HEALTHY */
+        .card { 
+            background: var(--white); 
+            padding: 50px; 
+            border-radius: 50px; /* Bo tròn cực sâu */
+            box-shadow: 0 30px 60px rgba(0,0,0,0.05); /* Bóng đổ rất mịn */
+            margin-bottom: 40px; 
+            border: none;
+        }
+
+        .section-title { 
+            font-size: 2.2em; 
+            font-weight: 800; 
+            text-align: center; 
+            margin-bottom: 40px; 
+            letter-spacing: -1px;
+        }
+
+        /* GRID INFO CHỈ SỐ */
+        .stats-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
+            gap: 30px; 
+            margin-top: 20px; 
+        }
+        .stat-item { 
+            background: #f8fafc; 
+            padding: 30px; 
+            border-radius: 35px; 
+            text-align: center;
+            transition: 0.3s;
+        }
+        .stat-item:hover { background: #edf2f7; transform: translateY(-5px); }
+        .stat-item h3 { font-size: 2em; margin: 0; color: var(--primary); }
+        .stat-item p { margin: 5px 0 0; font-weight: 600; font-size: 0.9em; opacity: 0.7; }
+
+        /* GRID BIỂU ĐỒ */
+        .chart-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+        @media (max-width: 850px) { .chart-grid { grid-template-columns: 1fr; } }
+        .chart-box { height: 400px; width: 100%; }
+
+        /* NÚT BẤM SANG TRỌNG */
+        .cta-wrap { text-align: center; margin-top: 20px; }
+        .cta-btn { 
+            display: inline-block;
+            background: var(--dark); 
+            color: white; 
+            padding: 20px 60px; 
+            border-radius: 40px; 
+            text-decoration: none; 
+            font-weight: 800; 
+            font-size: 1.1em;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 20px 40px rgba(29, 53, 87, 0.2);
+        }
+        .cta-btn:hover { transform: translateY(-8px); box-shadow: 0 25px 50px rgba(29, 53, 87, 0.3); }
+
+        footer { text-align: center; padding-bottom: 50px; opacity: 0.5; font-size: 0.9em; }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.2em; }
+            .card { padding: 30px; border-radius: 40px; }
+        }
+    </style>
+</head>
+<body>
+
+    <section class="hero">
+        <img src="assets/logo.png" alt="Logo" class="logo-brand">
+        <h1>BẾP CHÚ 7</h1>
+        <p>Tinh hoa mắm sạch - Quản trị minh bạch</p>
+    </section>
+
+    <div class="container">
+        <div class="card">
+            <h2 class="section-title" style="color: var(--dark);">Cam Kết Sức Khỏe</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3>100%</h3>
+                    <p>TỰ NHIÊN</p>
+                </div>
+                <div class="stat-item">
+                    <h3>0%</h3>
+                    <p>PHỤ GIA</p>
+                </div>
+                <div class="stat-item">
+                    <h3>06 Th.</h3>
+                    <p>Ủ CHƯỢP</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="chart-grid">
+            <div class="card">
+                <h3 style="text-align: center; margin-bottom: 20px;">Cơ Cấu Mặt Hàng</h3>
+                <div id="chart-pie" class="chart-box"></div>
+            </div>
+            <div class="card">
+                <h3 style="text-align: center; margin-bottom: 20px;">Sản Lượng Xuất Kho</h3>
+                <div id="chart-race" class="chart-box"></div>
+            </div>
+        </div>
+
+        <div class="cta-wrap">
+            <a href="https://zalo.me/your-number" class="cta-btn">KẾT NỐI ĐẠI LÝ SỈ</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 Bếp Chú 7 - Healthy Food Tradition</p>
+    </footer>
+
+    <script>
+        window.onload = function() {
+            // FIX LỖI KHUYẾT CHỮ MÀ ÔNG GẶP LÚC TRƯỚC
+            var pieChart = echarts.init(document.getElementById('chart-pie'));
+            pieChart.setOption({
+                tooltip: { trigger: 'item' },
+                series: [{
+                    type: 'pie',
+                    radius: ['45%', '65%'],
+                    avoidLabelOverlap: true,
+                    itemStyle: { borderRadius: 15 },
+                    label: { show: true, position: 'outside', fontSize: 11, formatter: '{b}' },
+                    labelLine: { length: 8, length2: 12, smooth: true },
+                    data: [
+                        { value: 450, name: 'Mắm Linh', itemStyle: {color: '#e63946'} },
+                        { value: 300, name: 'Mắm Sặc', itemStyle: {color: '#f4a261'} },
+                        { value: 200, name: 'Mắm Chốt', itemStyle: {color: '#2a9d8f'} }
+                    ]
+                }]
+            });
+
+            // BIỂU ĐỒ ĐUA - GIỮ NGUYÊN BIẾN CŨ
+            var raceChart = echarts.init(document.getElementById('chart-race'));
+            if (typeof optionBepChu7 !== 'undefined') {
+                raceChart.setOption(optionBepChu7);
+                if (typeof startBếpChú7Race === 'function') { startBếpChú7Race(raceChart); }
+            }
+            window.onresize = function() { pieChart.resize(); raceChart.resize(); };
+        };
+    </script>
+</body>
+</html>
