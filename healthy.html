@@ -10,24 +10,21 @@
 
     <style>
         :root { 
-            --primary: #c1272d; /* Đỏ mắm sâu, sang trọng hơn */
+            --primary: #c1272d; 
             --dark: #0f172a; 
             --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-            --glass: rgba(255, 255, 255, 0.9);
-            --accent: #1e293b;
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.85);
         }
 
         body { 
-            margin: 0; font-family: 'Inter', sans-serif; 
-            background: var(--bg-gradient); 
-            color: var(--dark); 
-            line-height: 1.7; 
-            min-height: 100vh;
+            margin: 0; font-family: 'Inter', sans-serif; background: var(--bg-gradient); 
+            color: var(--dark); line-height: 1.8; -webkit-font-smoothing: antialiased;
         }
 
-        /* HERO SECTION - BO GÓC MỀM MẠI */
+        /* HERO SECTION */
         .hero { 
-            height: 60vh;
+            height: 65vh;
             background: linear-gradient(rgba(15, 23, 42, 0.4), rgba(15, 23, 42, 0.4)), url('assets/cover.jpg') no-repeat center center;
             background-size: cover; 
             display: flex; flex-direction: column; justify-content: center; align-items: center;
@@ -38,59 +35,67 @@
         .logo-brand { width: 100px; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3)); margin-bottom: 15px; }
         .hero h1 { font-size: 3.5em; font-weight: 900; letter-spacing: -2px; margin: 0; }
 
-        .container { max-width: 1100px; margin: -60px auto 100px; padding: 0 20px; position: relative; }
+        .container { max-width: 1100px; margin: -80px auto 100px; padding: 0 20px; position: relative; }
 
-        /* PHẦN 1: 3 Ô BẰNG NHAU (FIX THEO Ý ÔNG) */
+        /* FIX 3 Ô BẰNG NHAU & NGANG HÀNG */
         .stats-grid { 
-            display: grid; 
-            grid-template-columns: repeat(3, 1fr); /* Chia đều 3 cột bằng nhau */
-            gap: 25px; 
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; 
         }
-
         .stat-card { 
-            background: var(--glass); 
-            padding: 45px 30px; 
-            border-radius: 45px; 
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.05);
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.7);
-            transition: all 0.3s ease;
+            background: var(--glass); padding: 45px 30px; border-radius: 50px; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.04); text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px);
+            transition: 0.3s;
         }
-        
-        .stat-card:hover { transform: translateY(-10px); box-shadow: 0 35px 60px -15px rgba(0, 0, 0, 0.1); }
+        .stat-card:hover { transform: translateY(-10px); }
         .stat-card h2 { color: var(--primary); font-size: 3em; margin: 0; font-weight: 900; }
-        .stat-card h3 { font-size: 1.2em; margin: 15px 0 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+        .stat-card h3 { font-size: 1.3em; margin: 15px 0 10px; font-weight: 700; letter-spacing: -1px; }
         .stat-card p { font-size: 0.95em; color: #64748b; margin: 0; }
 
-        /* PHẦN 2: BIỂU ĐỒ */
+        /* BIỂU ĐỒ */
         .chart-section { 
             margin-top: 40px; display: grid; grid-template-columns: 1fr 1.5fr; gap: 25px;
         }
         .chart-card { 
-            background: var(--glass); padding: 35px; border-radius: 45px; 
+            background: var(--glass); padding: 40px; border-radius: 50px; 
             box-shadow: 0 20px 40px rgba(0,0,0,0.03); border: 1px solid rgba(255, 255, 255, 0.7);
         }
         .chart-box { height: 400px; width: 100%; }
 
-        /* NÚT CTA SANG TRỌNG */
-        .cta-wrap { text-align: center; margin-top: 60px; }
-        .cta-btn { 
-            display: inline-block; background: var(--dark); color: white; padding: 20px 55px; 
-            border-radius: 100px; text-decoration: none; font-weight: 800; font-size: 1.1em;
-            transition: 0.4s; box-shadow: 0 20px 40px rgba(15, 23, 42, 0.2);
+        /* DANH MỤC DẠNG PILLS */
+        .product-pills { 
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-top: 30px; 
         }
-        .cta-btn:hover { background: var(--primary); transform: scale(1.05); }
+        .pill { 
+            background: var(--white); padding: 15px 35px; border-radius: 100px; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.03); font-weight: 700; color: var(--dark);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
 
-        /* RESPONSIVE CHO MOBILE */
+        /* CAM KẾT */
+        .commitment { text-align: center; padding: 80px 20px; }
+        .commitment h2 { font-size: 3em; font-weight: 900; letter-spacing: -2px; margin-bottom: 50px; }
+        .check-list { 
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; text-align: left; 
+        }
+        .check-item { background: var(--glass); padding: 30px; border-radius: 35px; border: 1px solid rgba(255,255,255,0.5); }
+        .check-item b { color: var(--primary); font-size: 1.2em; display: block; margin-bottom: 10px; }
+
+        /* NÚT CTA */
+        .cta-btn { 
+            display: inline-block; background: var(--dark); color: white; padding: 22px 65px; 
+            border-radius: 100px; text-decoration: none; font-weight: 800; font-size: 1.2em;
+            box-shadow: 0 25px 50px rgba(15, 23, 42, 0.2); transition: 0.4s; margin-top: 30px;
+        }
+        .cta-btn:hover { background: var(--primary); transform: translateY(-5px); }
+
+        footer { text-align: center; padding: 60px; opacity: 0.4; font-weight: 700; font-size: 0.9em; }
+
         @media (max-width: 850px) {
-            .stats-grid { grid-template-columns: 1fr; } /* Mobile thì xếp chồng cho dễ đọc */
+            .stats-grid { grid-template-columns: 1fr; }
             .chart-section { grid-template-columns: 1fr; }
             .hero h1 { font-size: 2.2em; }
-            .hero { height: 45vh; border-radius: 30px; }
-            .stat-card { padding: 35px 20px; }
         }
-
-        footer { text-align: center; padding: 60px; opacity: 0.4; font-size: 0.85em; font-weight: 600; }
     </style>
 </head>
 <body>
@@ -98,46 +103,73 @@
     <section class="hero">
         <img src="assets/logo.png" alt="Logo" class="logo-brand">
         <h1>BẾP CHÚ 7</h1>
-        <p>Tinh hoa mắm sạch Miền Tây - Số hóa minh bạch</p>
+        <p>Hệ thống số hóa sản lượng mắm sạch Miền Tây</p>
     </section>
 
     <div class="container">
         <div class="stats-grid">
             <div class="stat-card">
                 <h2>100%</h2>
-                <h3>Cá Tươi</h3>
-                <p>Nguồn cá thiên nhiên, chọn lọc khắt khe từ vùng nước ngọt Sông Tiền.</p>
+                <h3>Cá Tươi Đánh Bắt</h3>
+                <p>Nguồn nguyên liệu được tuyển chọn thủ công mỗi sáng sớm từ vùng nước ngọt Sông Tiền.</p>
             </div>
             <div class="stat-card">
-                <h2>06 Th.</h2>
-                <h3>Ủ Chượp</h3>
-                <p>Gia truyền ròng rã trong lu sành, không dùng chất bảo quản.</p>
+                <h2>06 TH.</h2>
+                <h3>Ủ Chượp Tự Nhiên</h3>
+                <p>Quy trình gia truyền 3 đời ròng rã trong lu sành, giữ trọn hương vị đặc sản xưa.</p>
             </div>
             <div class="stat-card">
                 <h2>30+</h2>
-                <h3>Đại Lý</h3>
-                <p>Hệ thống phân phối rộng khắp, quản trị dữ liệu kho bãi Real-time.</p>
+                <h3>Đại Lý Toàn Quốc</h3>
+                <p>Hệ thống phân phối chuyên nghiệp, minh bạch dữ liệu kho bãi và sản lượng Real-time.</p>
             </div>
         </div>
 
         <div class="chart-section">
             <div class="chart-card">
-                <h3 style="text-align: center; margin-bottom: 25px; opacity: 0.8;">Tỉ Lệ Mặt Hàng</h3>
+                <h3 style="margin-bottom: 30px; font-weight: 800; text-align: center;">Cơ Cấu Sản Phẩm</h3>
                 <div id="chart-pie" class="chart-box"></div>
             </div>
             <div class="chart-card">
-                <h3 style="text-align: center; margin-bottom: 25px; opacity: 0.8;">Sản Lượng Xuất Kho</h3>
+                <h3 style="margin-bottom: 30px; font-weight: 800; text-align: center;">Dòng Chảy Sản Lượng</h3>
                 <div id="chart-race" class="chart-box"></div>
             </div>
         </div>
 
-        <div class="cta-wrap">
-            <a href="https://zalo.me/your-number" class="cta-btn">NHẬN CHIẾT KHẤU ĐẠI LÝ</a>
+        <div style="text-align: center; margin-top: 80px;">
+            <h4 style="opacity: 0.4; text-transform: uppercase; letter-spacing: 2px; font-weight: 800;">Sản Phẩm Chủ Lực</h4>
+            <div class="product-pills">
+                <div class="pill">🐟 Mắm Cá Linh</div>
+                <div class="pill">🐠 Mắm Cá Sặc</div>
+                <div class="pill">🍤 Mắm Thái Đu Đủ</div>
+                <div class="pill">🍲 Mắm Chưng Sẵn</div>
+            </div>
+        </div>
+
+        <div class="commitment">
+            <h2>Hợp Tác Vững Bền</h2>
+            <div class="check-list">
+                <div class="check-item">
+                    <b>✓ Sản lượng ổn định</b>
+                    Hệ thống số hóa giúp dự báo chính xác nguồn hàng, không lo thiếu hụt mùa cao điểm.
+                </div>
+                <div class="check-item">
+                    <b>✓ Chất lượng đồng nhất</b>
+                    Mỗi lô mắm xuất xưởng đều đạt chuẩn về thời gian ủ và độ cảm quan truyền thống.
+                </div>
+                <div class="check-item">
+                    <b>✓ Minh bạch dữ liệu</b>
+                    Đối tác đại lý được cung cấp quyền truy cập số liệu thực tế để chủ động nhập hàng.
+                </div>
+            </div>
+            <div style="text-align: center;">
+                <a href="https://zalo.me/your-number" class="cta-btn">NHẬN BÁO GIÁ ĐẠI LÝ</a>
+            </div>
         </div>
     </div>
 
     <footer>
-        <p>© 2026 BEP CHU 7 - PREMIUM TRADITION</p>
+        <p>BẾP CHÚ 7 - PREMIUM TRADITION © 2026</p>
     </footer>
 
     <script>
@@ -150,7 +182,7 @@
                     radius: ['50%', '75%'],
                     avoidLabelOverlap: true,
                     itemStyle: { borderRadius: 20, borderColor: '#fff', borderWidth: 2 },
-                    label: { show: true, position: 'outside', fontSize: 11, fontWeight: 'bold', color: '#64748b' },
+                    label: { show: true, position: 'outside', fontSize: 11, fontWeight: 'bold' },
                     labelLine: { length: 12, length2: 15, smooth: true },
                     data: [
                         { value: 450, name: 'Mắm Linh', itemStyle: {color: '#c1272d'} },
