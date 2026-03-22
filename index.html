@@ -134,9 +134,24 @@
             var pieChart = echarts.init(document.getElementById('chart-pie'));
             pieChart.setOption({
                 tooltip: { trigger: 'item' },
+                // Thêm grid hoặc padding để chữ không bị tràn
+                grid: { top: '10%', bottom: '10%', left: '10%', right: '10%', containLabel: true },
                 series: [{
                     type: 'pie',
-                    radius: ['40%', '70%'],
+                    radius: ['40%', '65%'], // Thu nhỏ bán kính một chút để lấy chỗ cho chữ
+                    avoidLabelOverlap: true, // Chống đè chữ
+                    itemStyle: { borderRadius: 8 },
+                    label: {
+                        show: true,
+                        position: 'outside',
+                        formatter: '{b}', // Chỉ hiện tên (Mắm Linh, Mắm Sặc...)
+                        fontSize: 12
+                    },
+                    labelLine: {
+                        length: 10,      // Độ dài đường kẻ thứ 1
+                        length2: 15,     // Độ dài đường kẻ thứ 2 (chỗ nằm ngang)
+                        smooth: true
+                    },
                     data: [
                         { value: 450, name: 'Mắm Linh', itemStyle: {color: '#e63946'} },
                         { value: 300, name: 'Mắm Sặc', itemStyle: {color: '#f4a261'} },
