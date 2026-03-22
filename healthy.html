@@ -3,68 +3,79 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bếp Chú 7 | Premium Healthy Edition</title>
+    <title>Bếp Chú 7 | Healthy & Premium Edition</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
     <script src="data_daily.js" defer></script>
 
     <style>
         :root { 
-            --primary: #c1272d; 
+            --primary: #c1272d; /* Đỏ sâu cao cấp hơn */
             --dark: #0f172a; 
-            --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            --bg: #f1f5f9; 
             --white: #ffffff;
-            --glass: rgba(255, 255, 255, 0.85);
+            --soft-shadow: 0 20px 50px rgba(0,0,0,0.06);
+            --glass: rgba(255, 255, 255, 0.9);
         }
 
         body { 
-            margin: 0; font-family: 'Inter', sans-serif; background: var(--bg-gradient); 
-            color: var(--dark); line-height: 1.8; -webkit-font-smoothing: antialiased;
+            margin: 0; font-family: 'Inter', sans-serif; 
+            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%); /* Phối màu nền mới */
+            color: var(--dark); 
+            line-height: 1.8; -webkit-font-smoothing: antialiased;
         }
 
-        /* HERO SECTION */
+        /* HERO SECTION - GIỮ BIẾN CŨ */
         .hero { 
-            height: 65vh;
-            background: linear-gradient(rgba(15, 23, 42, 0.4), rgba(15, 23, 42, 0.4)), url('assets/cover.jpg') no-repeat center center;
+            height: 75vh;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('assets/cover.jpg') no-repeat center center;
             background-size: cover; 
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             color: white; text-align: center;
-            margin: 15px; border-radius: 50px;
+            border-bottom-left-radius: 80px; border-bottom-right-radius: 80px;
         }
 
-        .logo-brand { width: 100px; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3)); margin-bottom: 15px; }
-        .hero h1 { font-size: 3.5em; font-weight: 900; letter-spacing: -2px; margin: 0; }
+        .logo-brand { width: 110px; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3)); margin-bottom: 20px; }
+        .hero h1 { font-size: 4em; font-weight: 900; letter-spacing: -3px; margin: 0; }
 
-        .container { max-width: 1100px; margin: -80px auto 100px; padding: 0 20px; position: relative; }
+        .container { max-width: 1100px; margin: -100px auto 100px; padding: 0 20px; position: relative; }
 
-        /* FIX 3 Ô BẰNG NHAU & NGANG HÀNG */
-        .stats-grid { 
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; 
+        /* PHẦN 1: 3 Ô ĐÃ CHỈNH BẰNG NHAU & NGANG HÀNG */
+        .stats-overlap { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); /* Chia đều 3 cột */
+            gap: 30px; 
         }
         .stat-card { 
-            background: var(--glass); padding: 45px 30px; border-radius: 50px; 
-            box-shadow: 0 20px 40px rgba(0,0,0,0.04); text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px);
-            transition: 0.3s;
+            background: var(--glass); 
+            padding: 50px 30px; 
+            border-radius: 60px; 
+            box-shadow: var(--soft-shadow); 
+            transition: 0.4s;
+            backdrop-filter: blur(10px); /* Hiệu ứng kính mờ */
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            text-align: center;
         }
+        /* Bỏ cái margin-top lệch tầng cũ */
+        .stat-card:nth-child(even) { margin-top: 0; } 
+        
         .stat-card:hover { transform: translateY(-10px); }
         .stat-card h2 { color: var(--primary); font-size: 3em; margin: 0; font-weight: 900; }
-        .stat-card h3 { font-size: 1.3em; margin: 15px 0 10px; font-weight: 700; letter-spacing: -1px; }
-        .stat-card p { font-size: 0.95em; color: #64748b; margin: 0; }
+        .stat-card h3 { font-size: 1.4em; margin: 10px 0; letter-spacing: -1px; }
 
-        /* BIỂU ĐỒ */
+        /* PHẦN 2: BIỂU ĐỒ - GIỮ NGUYÊN */
         .chart-section { 
-            margin-top: 40px; display: grid; grid-template-columns: 1fr 1.5fr; gap: 25px;
+            margin-top: 50px; display: grid; grid-template-columns: 1fr 1.5fr; gap: 30px;
         }
         .chart-card { 
-            background: var(--glass); padding: 40px; border-radius: 50px; 
-            box-shadow: 0 20px 40px rgba(0,0,0,0.03); border: 1px solid rgba(255, 255, 255, 0.7);
+            background: var(--glass); padding: 40px; border-radius: 60px; box-shadow: var(--soft-shadow);
+            backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.6);
         }
         .chart-box { height: 400px; width: 100%; }
 
-        /* DANH MỤC DẠNG PILLS */
+        /* PHẦN 3: SẢN PHẨM PILLS - GIỮ NGUYÊN */
         .product-pills { 
-            display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-top: 30px; 
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-top: 40px; 
         }
         .pill { 
             background: var(--white); padding: 15px 35px; border-radius: 100px; 
@@ -72,29 +83,31 @@
             border: 1px solid rgba(0,0,0,0.05);
         }
 
-        /* CAM KẾT */
-        .commitment { text-align: center; padding: 80px 20px; }
-        .commitment h2 { font-size: 3em; font-weight: 900; letter-spacing: -2px; margin-bottom: 50px; }
+        /* PHẦN 4: CAM KẾT - GIỮ NGUYÊN */
+        .commitment { 
+            text-align: center; padding: 100px 20px; 
+        }
+        .commitment h2 { font-size: 3.5em; font-weight: 900; letter-spacing: -2px; margin-bottom: 40px; }
         .check-list { 
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; text-align: left; 
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; text-align: left; 
         }
-        .check-item { background: var(--glass); padding: 30px; border-radius: 35px; border: 1px solid rgba(255,255,255,0.5); }
-        .check-item b { color: var(--primary); font-size: 1.2em; display: block; margin-bottom: 10px; }
+        .check-item b { color: var(--primary); font-size: 1.2em; display: block; margin-bottom: 5px; }
 
-        /* NÚT CTA */
+        /* NÚT CTA - GIỮ NGUYÊN */
         .cta-btn { 
-            display: inline-block; background: var(--dark); color: white; padding: 22px 65px; 
+            display: inline-block; background: var(--dark); color: white; padding: 22px 60px; 
             border-radius: 100px; text-decoration: none; font-weight: 800; font-size: 1.2em;
-            box-shadow: 0 25px 50px rgba(15, 23, 42, 0.2); transition: 0.4s; margin-top: 30px;
+            box-shadow: 0 30px 60px rgba(29, 53, 87, 0.25); transition: 0.4s; margin-top: 50px;
         }
-        .cta-btn:hover { background: var(--primary); transform: translateY(-5px); }
+        .cta-btn:hover { background: var(--primary); transform: translateY(-10px); }
 
-        footer { text-align: center; padding: 60px; opacity: 0.4; font-weight: 700; font-size: 0.9em; }
+        footer { text-align: center; padding: 60px; opacity: 0.4; font-weight: 700; }
 
         @media (max-width: 850px) {
-            .stats-grid { grid-template-columns: 1fr; }
+            .stats-overlap { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2.5em; }
             .chart-section { grid-template-columns: 1fr; }
-            .hero h1 { font-size: 2.2em; }
+            .commitment h2 { font-size: 2em; }
         }
     </style>
 </head>
@@ -107,21 +120,21 @@
     </section>
 
     <div class="container">
-        <div class="stats-grid">
+        <div class="stats-overlap">
             <div class="stat-card">
                 <h2>100%</h2>
                 <h3>Cá Tươi Đánh Bắt</h3>
-                <p>Nguồn nguyên liệu được tuyển chọn thủ công mỗi sáng sớm từ vùng nước ngọt Sông Tiền.</p>
+                <p>Nguồn nguyên liệu được tuyển chọn thủ công mỗi sáng sớm từ vùng nước ngọt.</p>
             </div>
             <div class="stat-card">
                 <h2>06 TH.</h2>
                 <h3>Ủ Chượp Tự Nhiên</h3>
-                <p>Quy trình gia truyền 3 đời ròng rã trong lu sành, giữ trọn hương vị đặc sản xưa.</p>
+                <p>Quy trình gia truyền 3 đời, không hóa chất, giữ trọn vị mắm xưa.</p>
             </div>
             <div class="stat-card">
                 <h2>30+</h2>
                 <h3>Đại Lý Toàn Quốc</h3>
-                <p>Hệ thống phân phối chuyên nghiệp, minh bạch dữ liệu kho bãi và sản lượng Real-time.</p>
+                <p>Dữ liệu minh bạch giúp hệ thống phân phối luôn vận hành ổn định.</p>
             </div>
         </div>
 
@@ -131,13 +144,13 @@
                 <div id="chart-pie" class="chart-box"></div>
             </div>
             <div class="chart-card">
-                <h3 style="margin-bottom: 30px; font-weight: 800; text-align: center;">Dòng Chảy Sản Lượng</h3>
+                <h3 style="margin-bottom: 30px; font-weight: 800; text-align: center;">Dòng Chảy Sản Lượng (Real-time)</h3>
                 <div id="chart-race" class="chart-box"></div>
             </div>
         </div>
 
         <div style="text-align: center; margin-top: 80px;">
-            <h4 style="opacity: 0.4; text-transform: uppercase; letter-spacing: 2px; font-weight: 800;">Sản Phẩm Chủ Lực</h4>
+            <h4 style="opacity: 0.5; text-transform: uppercase; letter-spacing: 2px;">Sản Phẩm Chủ Lực</h4>
             <div class="product-pills">
                 <div class="pill">🐟 Mắm Cá Linh</div>
                 <div class="pill">🐠 Mắm Cá Sặc</div>
@@ -151,20 +164,18 @@
             <div class="check-list">
                 <div class="check-item">
                     <b>✓ Sản lượng ổn định</b>
-                    Hệ thống số hóa giúp dự báo chính xác nguồn hàng, không lo thiếu hụt mùa cao điểm.
+                    Hệ thống theo dõi giúp dự báo nguồn hàng, không lo đứt hàng mùa cao điểm.
                 </div>
                 <div class="check-item">
                     <b>✓ Chất lượng đồng nhất</b>
-                    Mỗi lô mắm xuất xưởng đều đạt chuẩn về thời gian ủ và độ cảm quan truyền thống.
+                    Mỗi lô mắm đều được kiểm soát nghiêm ngặt thời gian ủ ròng.
                 </div>
                 <div class="check-item">
                     <b>✓ Minh bạch dữ liệu</b>
-                    Đối tác đại lý được cung cấp quyền truy cập số liệu thực tế để chủ động nhập hàng.
+                    Đối tác được tiếp cận số liệu kho để chủ động kinh doanh.
                 </div>
             </div>
-            <div style="text-align: center;">
-                <a href="https://zalo.me/your-number" class="cta-btn">NHẬN BÁO GIÁ ĐẠI LÝ</a>
-            </div>
+            <a href="https://zalo.me/your-number" class="cta-btn">NHẬN BÁO GIÁ ĐẠI LÝ</a>
         </div>
     </div>
 
@@ -179,11 +190,11 @@
                 tooltip: { trigger: 'item' },
                 series: [{
                     type: 'pie',
-                    radius: ['50%', '75%'],
+                    radius: ['50%', '70%'],
                     avoidLabelOverlap: true,
-                    itemStyle: { borderRadius: 20, borderColor: '#fff', borderWidth: 2 },
-                    label: { show: true, position: 'outside', fontSize: 11, fontWeight: 'bold' },
-                    labelLine: { length: 12, length2: 15, smooth: true },
+                    itemStyle: { borderRadius: 20 },
+                    label: { show: true, position: 'outside', fontSize: 12, fontWeight: 'bold' },
+                    labelLine: { length: 10, length2: 15, smooth: true },
                     data: [
                         { value: 450, name: 'Mắm Linh', itemStyle: {color: '#c1272d'} },
                         { value: 300, name: 'Mắm Sặc', itemStyle: {color: '#f4a261'} },
